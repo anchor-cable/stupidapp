@@ -17,6 +17,7 @@ def main():
         else:
             timeout_count[0] = 0
         if timeout_count[0] <= 5:
+            time.sleep(60)
             watchKeyboard()
     
     watchKeyboard()
