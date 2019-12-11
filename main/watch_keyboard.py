@@ -9,10 +9,9 @@ class watchKeyboard():
     def __init__(self,argv):
         super().__init__()
         if len(argv)>1 :
-            self.watch_minutes = argv[1]
+            self.watch_minutes = int(argv[1])
         else:
             self.watch_minutes = 5
-        self.watch_seconds = self.watch_minutes * 60 if self.watch_minutes > 0 else 300
     
     def main(self):
         print('サボりチェッカーです。' + str(self.watch_minutes) + '分キータイプが無い場合に警告します。')
@@ -27,13 +26,13 @@ class watchKeyboard():
     def watch(self,timeout_count):
         typed_pool = []
         keyboard.start_recording()
-        time.sleep(self.watch_seconds)
+        time.sleep(60)
         typed_pool = keyboard.stop_recording()
         if len(typed_pool) == 0:
             timeout_count += 1
         else:
             timeout_count = 0
-        if timeout_count <= 5:
+        if timeout_count < self.watch_minutes:
             self.watch(timeout_count)
         else:
             return
@@ -50,7 +49,7 @@ class watchKeyboard():
         msg = Label(root,textvariable=msg_txt,font=msg_font)
         msg.pack()
         root.mainloop()
-        root.protocol("WM_DELETE_WINDOW", self.watch(0))
+        root.protocol("WM_DELETE_WINDOW", self.main())
 
 if __name__ == "__main__":
     watchKeyboard(sys.argv).main()
