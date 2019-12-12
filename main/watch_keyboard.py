@@ -32,10 +32,8 @@ class watchKeyboard():
             timeout_count += 1
         else:
             timeout_count = 0
-        if timeout_count < self.watch_minutes:
+        if timeout_count <= self.watch_minutes:
             self.watch(timeout_count)
-        else:
-            return
     
     def warning(self):
         root = Tk()
